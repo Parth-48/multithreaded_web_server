@@ -2,6 +2,7 @@
 #include<winsock2.h>
 #include<ws2tcpip.h>
 #include "../include/server.h"
+#include "../include/request.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -50,17 +51,11 @@ void start_server(int port){
             continue;
         }
 
-        recv(client_fd,buffer,BUFFER_SIZE,0);
+        if(client_fd != INVALID_SOCKET){
+            handle_request(client_fd);
+            closesocket(client_fd);
+        }
 
-        printf("Client Request : \n%s\n" ,buffer);
-
-        char response[] = "HTTP/1.1 200 OK\r\n"
-                        "Content-Type: text/plain\r\n\r\n"
-                        "Hello from C Web Server";
-        
-        send(client_fd,response, strlen(response), 0);
-
-        closesocket(client_fd);
     }
 
     closesocket(server_fd);
