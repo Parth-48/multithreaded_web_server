@@ -3,6 +3,7 @@
 #include<ws2tcpip.h>
 #include "../include/server.h"
 #include "../include/request.h"
+#include "../include/threadpool.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -40,6 +41,8 @@ void start_server(int port){
 
     printf("Server running on port %d... \n", port);
 
+    threadpool_init();
+    
     while(1){
 
         printf("Waiting for client... \n");
@@ -52,8 +55,7 @@ void start_server(int port){
         }
 
         if(client_fd != INVALID_SOCKET){
-            handle_request(client_fd);
-            closesocket(client_fd);
+            add_task(client_fd);
         }
 
     }
