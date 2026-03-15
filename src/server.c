@@ -47,7 +47,7 @@ void start_server(int port){
 
         printf("Waiting for client... \n");
 
-        client_fd = accept(server_fd,NULL,NULL);
+        client_fd = accept(server_fd, NULL,NULL);
 
         if(client_fd == INVALID_SOCKET){
             printf("Client connection failed\n");
