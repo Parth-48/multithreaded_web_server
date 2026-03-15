@@ -34,7 +34,7 @@ void log_request(char *method, char *path, int status){
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
 
-    fprintf(log, "[%02d:%02d:%02d] %s %s %d" ,
+    fprintf(log, "[%02d:%02d:%02d] %s %s %d \n" ,
     t->tm_hour,
     t->tm_min,
     t->tm_sec,
